@@ -11,7 +11,7 @@ There is a lot you'll need before you begin building your chatbot app. This will
 You'll need to set up a payment method and get an API key (https://platform.openai.com/docs/api-reference/authentication).
 - A mySQL database hosted online.
 
-In this tutorial, I'll be using google clod for hosting. It's one of the easiest ways to do it. If you want to do it the same way, you'll have to create an account and set up payment method.(https://console.cloud.google.com).
+In this tutorial, I'll be using google cloud for hosting. It's one of the easiest ways to do it. If you want to do it the same way, you'll have to create an account and set up payment method.(https://console.cloud.google.com).
 You will also need to create a database and get all its credentials (user, passoword, IP, port)
 - A Streamlit account.
 
