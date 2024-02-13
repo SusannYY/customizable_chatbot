@@ -46,19 +46,65 @@ st.title('Chatbot')
 st.markdown(
     """
     <style>
+        /* Container for the entire chat */
+        .chat-container {
+            background-color: #ECEFF1; /* Light grey background */
+            border-radius: 8px; /* Rounded corners for the chat container */
+            padding: 16px; /* Spacing inside the container */
+            max-width: 600px; /* Maximum width of the chat container */
+            margin: auto; /* Center the chat container */
+        }
+
+        /* Styling for messages */
         .message {
-            margin: 10px;
+            padding: 12px 20px; /* Padding inside the message bubbles */
+            margin: 5px;
+            border-radius: 18px; /* Rounded corners for message bubbles */
+            display: inline-block;
+            max-width: 80%; /* Maximum width of messages */
+            word-wrap: break-word; /* Ensure long words do not overflow */
+        }
+
+        /* Styling for user messages */
+        .user-message {
+            background-color: #0078FF; /* Blue background for user messages */
+            color: white; /* White text for user messages */
+            margin-left: auto; /* Align user messages to the right */
+            margin-right: 10px;
+        }
+
+        /* Styling for bot messages */
+        .bot-message {
+            background-color: #F0F0F0; /* Light grey background for bot messages */
+            color: black; /* Black text for bot messages */
+            margin-left: 10px;
+            margin-right: auto; /* Align bot messages to the left */
+        }
+
+        /* Align the input box and send button */
+        .input-group {
+            display: flex;
+            margin-top: 10px; /* Space from the last message */
+        }
+
+        .input-group input {
+            flex: 1; /* Make input take up available space */
             padding: 10px;
-            border-radius: 10px;
-            width: 70%;
+            border-radius: 18px 0 0 18px; /* Rounded left corners for the input */
+            border: none; /* No border for the input */
         }
-        .user {
-            margin-left: auto;
-            background-color: #2D2928;
+
+        .input-group button {
+            padding: 10px;
+            border-radius: 0 18px 18px 0; /* Rounded right corners for the button */
+            border: none; /* No border for the button */
+            background-color: #0078FF; /* Blue background for the button */
+            color: white; /* White text for the button */
         }
-        .bot {
-            margin-right: auto;
-            background-color: #2D2928;
+
+        /* Additional styles to ensure compatibility */
+        body {
+            font-family: Arial, sans-serif; /* The font used in the image */
         }
     </style>
     """,
