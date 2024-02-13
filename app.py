@@ -132,7 +132,7 @@ if st.button('Send'):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0.2,
-        max_tokens=2000,
+        max_tokens=4096,
         messages=[start_message, *st.session_state.chat]
     )
 
