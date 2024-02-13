@@ -162,12 +162,7 @@ start_message = {
 
 # Display chat messages
 for msg in st.session_state.messages:
-    # Assign class based on the sender
-    sender_class = 'user-message' if msg['sender'] == 'user' else 'bot-message'
-    
-    # Display the message with the appropriate class for styling
-    st.markdown(f"<div class='message {sender_class}'>{msg['text']}</div>", unsafe_allow_html=True)
-
+    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
@@ -176,12 +171,10 @@ if 'chat' not in st.session_state:
     st.session_state.chat = []
 
 if st.button('Send'):
-    # Append the user's message with the 'sender' key
-    st.session_state.messages.append({'text': f"You: {st.session_state.last_submission}", 'sender': 'user'})
+    st.session_state.messages.append({'class': 'user', 'text': f"You: {st.session_state.last_submission}"})
     user_message = {"role": "user", "content": st.session_state.last_submission}
     st.session_state.chat.append(user_message)
 
-    # Get the bot's response
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0.2,
@@ -192,14 +185,12 @@ if st.button('Send'):
     bot_response = response['choices'][0]['message']['content']
     bot_message = {"role": "system", "content": bot_response}
     st.session_state.chat.append(bot_message)
-
-    # Append the bot's message with the 'sender' key
-    st.session_state.messages.append({'text': f"Kit: {bot_response}", 'sender': 'bot'})
+    st.session_state.messages.append({'class': 'bot', 'text': f"Kit: {bot_response}"})
 
     # Save the conversation to SQLite
     conversation_content = f"You: {st.session_state.last_submission}\nBot: {bot_response}"
     save_conversation(conversation_content)
+    #st.write(conversation_content)
     
     st.session_state.last_submission = ''
-    # No need to rerun the app, instead just clear the input box
-    st.session_state['message_input'] = ''
+    st.rerun()  # Clear input box by rerunning the app
