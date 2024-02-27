@@ -48,9 +48,8 @@ st.markdown(
     <style>
         .chatbox {
             max-height: 100px; /* You can set this to the desired fixed height */
-            overflow-y: auto;
+            overflow: scroll;
             border: 1px solid #ccc; /* For visual boundary, optional */
-            margin-bottom: 20px; /* Spacing below the chatbox */
         }
         .message {
             margin: 10px;
