@@ -124,13 +124,9 @@ start_message = {
 
 # Create the chatbox container
 st.markdown("<div class='chatbox'>", unsafe_allow_html=True)
-# Display chat messages within the chatbox
+# Display chat messages
 for msg in st.session_state.messages:
-    # Check if 'role' key exists in msg and assign a class accordingly
-    sender_class = 'user' if msg.get('role') == 'user' else 'bot'
-    st.markdown(f"<div class='message {sender_class}'>{msg.get('content', '')}</div>", unsafe_allow_html=True)
-# Close the chatbox container
-st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
 
 # Display modified text input
