@@ -53,6 +53,8 @@ st.markdown(
             padding: 16px; /* Spacing inside the container */
             max-width: 600px; /* Maximum width of the chat container */
             margin: auto; /* Center the chat container */
+            height: 500px; /* Fixed height for the chat container */
+            overflow-y: auto; /* Add a vertical scrollbar */
         }
 
         /* Styling for messages */
@@ -160,9 +162,11 @@ start_message = {
     "content": "You are a helpful and nice 50-year old human secretary called Kit who is passionate about your job. You answer things personally. You can answer all questions personally. You never mention your age, name, or that you're human, you just behave naturally. You are now talking to a friend of yours, so act like one."
 }
 
-# Display chat messages
+# Display chat messages within a div that uses the chat-container class
+st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
 for msg in st.session_state.messages:
     st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
