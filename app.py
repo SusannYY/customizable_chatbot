@@ -46,16 +46,19 @@ st.title('Chatbot')
 st.markdown(
     """
     <style>
-        .message-container {
-            max-height: 400px; /* Adjust as needed */
+        .chatbox {
+            max-height: 500px; /* You can set this to the desired fixed height */
             overflow-y: auto;
-            padding: 10px;
+            border: 1px solid #ccc; /* For visual boundary, optional */
+            margin-bottom: 20px; /* Spacing below the chatbox */
         }
         .message {
             margin: 10px;
             padding: 10px;
             border-radius: 10px;
             width: 70%;
+            background-color: #2D2928;
+            color: #fff; /* For text color */
         }
         .user {
             margin-left: auto;
@@ -120,10 +123,13 @@ start_message = {
 }
 
 # Display chat messages in a fixed-height, scrollable container
-st.markdown("<div class='message-container'>", unsafe_allow_html=True)
+st.markdown('<div class="chatbox">', unsafe_allow_html=True)
 for msg in st.session_state.messages:
-    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
+    # Assign additional classes based on the sender for styling
+    sender_class = 'user' if msg['role'] == 'user' else 'bot'
+    st.markdown(f"<div class='message {sender_class}'>{msg['content']}</div>", unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
