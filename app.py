@@ -47,10 +47,14 @@ st.markdown(
     """
     <style>
         .chatbox {
-            max-height: 100px; /* You can set this to the desired fixed height */
-            max-width: 100px; /* You can set this to the desired fixed height */
-            overflow: scroll;
+            max-height: 500px; /* Adjust this to the desired fixed height */
+            overflow-y: auto; /* This will show the scrollbar only when needed */
             border: 1px solid #ccc; /* For visual boundary, optional */
+            margin-bottom: 20px; /* Space below the chatbox */
+            padding: 0 10px;
+            background-color: #000; /* Adjust the background color if needed */
+            display: flex;
+            flex-direction: column-reverse; /* This ensures that the chat starts from the bottom */
         }
         .message {
             margin: 10px;
