@@ -122,13 +122,15 @@ start_message = {
     "content": "You are a helpful and nice 50-year old human secretary called Kit who is passionate about your job. You answer things personally. You can answer all questions personally. You never mention your age, name, or that you're human, you just behave naturally. You are now talking to a friend of yours, so act like one."
 }
 
-# Display chat messages in a fixed-height, scrollable container
-st.markdown('<div class="chatbox">', unsafe_allow_html=True)
+# Create the chatbox container
+st.markdown("<div class='chatbox'>", unsafe_allow_html=True)
+# Display chat messages within the chatbox
 for msg in st.session_state.messages:
-    # Assign additional classes based on the sender for styling
-    sender_class = 'user' if msg['role'] == 'user' else 'bot'
-    st.markdown(f"<div class='message {sender_class}'>{msg['content']}</div>", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+    # Check if 'role' key exists in msg and assign a class accordingly
+    sender_class = 'user' if msg.get('role') == 'user' else 'bot'
+    st.markdown(f"<div class='message {sender_class}'>{msg.get('content', '')}</div>", unsafe_allow_html=True)
+# Close the chatbox container
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 # Display modified text input
