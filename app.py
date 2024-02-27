@@ -46,66 +46,24 @@ st.title('Chatbot')
 st.markdown(
     """
     <style>
-        .chat-container {
-            background-color: #ECEFF1;
-            border-radius: 8px;
-            padding: 16px;
-            max-width: 600px;
-            margin: auto;
-            height: 500px; /* Fixed height for the chat container */
-            overflow-y: scroll; /* Scroll bar for the container */
+        .message-container {
+            max-height: 400px; /* Adjust as needed */
+            overflow-y: auto;
+            padding: 10px;
         }
-
-        /* Styling for messages */
         .message {
-            padding: 12px 20px; /* Padding inside the message bubbles */
-            margin: 5px;
-            border-radius: 18px; /* Rounded corners for message bubbles */
-            display: inline-block;
-            max-width: 80%; /* Maximum width of messages */
-            word-wrap: break-word; /* Ensure long words do not overflow */
-        }
-
-        /* Styling for user messages */
-        .user-message {
-            background-color: #0078FF; /* Blue background for user messages */
-            color: white; /* White text for user messages */
-            margin-left: auto; /* Align user messages to the right */
-            margin-right: 10px;
-        }
-
-        /* Styling for bot messages */
-        .bot-message {
-            background-color: #F0F0F0; /* Light grey background for bot messages */
-            color: black; /* Black text for bot messages */
-            margin-left: 10px;
-            margin-right: auto; /* Align bot messages to the left */
-        }
-
-        /* Align the input box and send button */
-        .input-group {
-            display: flex;
-            margin-top: 10px; /* Space from the last message */
-        }
-
-        .input-group input {
-            flex: 1; /* Make input take up available space */
+            margin: 10px;
             padding: 10px;
-            border-radius: 18px 0 0 18px; /* Rounded left corners for the input */
-            border: none; /* No border for the input */
+            border-radius: 10px;
+            width: 70%;
         }
-
-        .input-group button {
-            padding: 10px;
-            border-radius: 0 18px 18px 0; /* Rounded right corners for the button */
-            border: none; /* No border for the button */
-            background-color: #0078FF; /* Blue background for the button */
-            color: white; /* White text for the button */
+        .user {
+            margin-left: auto;
+            background-color: #2D2928;
         }
-
-        /* Additional styles to ensure compatibility */
-        body {
-            font-family: Arial, sans-serif; /* The font used in the image */
+        .bot {
+            margin-right: auto;
+            background-color: #2D2928;
         }
     </style>
     """,
@@ -161,9 +119,11 @@ start_message = {
     "content": "You are a helpful and nice 50-year old human secretary called Kit who is passionate about your job. You answer things personally. You can answer all questions personally. You never mention your age, name, or that you're human, you just behave naturally. You are now talking to a friend of yours, so act like one."
 }
 
-# Display chat messages
+# Display chat messages in a fixed-height, scrollable container
+st.markdown("<div class='message-container'>", unsafe_allow_html=True)
 for msg in st.session_state.messages:
     st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
