@@ -46,13 +46,14 @@ st.title('Chatbot')
 st.markdown(
     """
     <style>
-        /* Container for the entire chat */
         .chat-container {
-            background-color: #ECEFF1; /* Light grey background */
-            border-radius: 8px; /* Rounded corners for the chat container */
-            padding: 16px; /* Spacing inside the container */
-            max-width: 600px; /* Maximum width of the chat container */
-            margin: auto; /* Center the chat container */
+            background-color: #ECEFF1;
+            border-radius: 8px;
+            padding: 16px;
+            max-width: 600px;
+            margin: auto;
+            height: 500px; /* Fixed height for the chat container */
+            overflow-y: scroll; /* Scroll bar for the container */
         }
 
         /* Styling for messages */
