@@ -117,9 +117,17 @@ start_message = {
 }
 
 
-# Display chat messages
+# Start a container for all messages with fixed height and scrollable overflow
+st.markdown("<div style='max-height: 500px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;'>", unsafe_allow_html=True)
+
+# Loop through each message and add it to the container
 for msg in st.session_state.messages:
-    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
+    # Ensure the message content is safely rendered
+    message_content = msg['text'].replace("\n", "<br>")  # Convert newlines to HTML breaks if necessary
+    st.markdown(f"<div class='message {msg['class']}' style='margin-bottom: 10px;'>{message_content}</div>", unsafe_allow_html=True)
+
+# Close the container
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 # Display modified text input
