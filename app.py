@@ -129,7 +129,7 @@ start_message = {
 # Create the chatbox container
 st.markdown("<div class='chatbox'>", unsafe_allow_html=True)
 # Display chat messages
-with st.container():
+with st.container(height=500):
     for msg in st.session_state.messages:
         st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
