@@ -125,14 +125,16 @@ start_message = {
 
 
 # Open the scrollable container before the loop
-st.markdown(f"<div class='scrollable-container'>", unsafe_allow_html=True)
 
-# Display chat messages inside the scrollable container
+# # Display chat messages inside the scrollable container
+msgin = ''
 for msg in st.session_state.messages:
-    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
+    msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
+    
+st.markdown(f"<div class='scrollable-container'>"+msgin+f"</div>", unsafe_allow_html=True)
 
-# Close the container
-st.markdown(f"</div>", unsafe_allow_html=True)
+# # Close the container
+# st.markdown(f"</div>", unsafe_allow_html=True)
 
 # Auto-scroll to the bottom of the chat container after new message is added
 st.markdown(
