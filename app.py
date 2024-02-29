@@ -116,11 +116,10 @@ start_message = {
     "content": "You are a helpful and nice 50-year old human secretary called Kit who is passionate about your job. You answer things personally. You can answer all questions personally. You never mention your age, name, or that you're human, you just behave naturally. You are now talking to a friend of yours, so act like one."
 }
 
-# Create the chatbox container
-st.markdown("<div class='chatbox'>", unsafe_allow_html=True)
+
 # Display chat messages
 for msg in st.session_state.messages:
-    st.markdown(f"<div style='height: 300px; overflow-y: scroll;' class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
 
 # Display modified text input
