@@ -46,6 +46,13 @@ st.title('Chatbot')
 st.markdown(
     """
     <style>
+        .scrollable-container {
+            max-height: 500px; /* Fixed max-height */
+            overflow-y: auto; /* Show scrollbar when needed */
+            border: 1px solid #ccc; /* Visual boundary */
+            padding: 10px; /* Padding inside the container */
+            background-color: #000; /* Adjust the background color if needed */
+        }
         .message {
             margin: 10px;
             padding: 10px;
@@ -117,14 +124,12 @@ start_message = {
 }
 
 
-# Start a container for all messages with fixed height and scrollable overflow
-st.markdown("<div style='max-height: 500px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;'>", unsafe_allow_html=True)
+# Open the scrollable container before the loop
+st.markdown("<div class='scrollable-container'>", unsafe_allow_html=True)
 
-# Loop through each message and add it to the container
+# Display chat messages inside the scrollable container
 for msg in st.session_state.messages:
-    # Ensure the message content is safely rendered
-    message_content = msg['text'].replace("\n", "<br>")  # Convert newlines to HTML breaks if necessary
-    st.markdown(f"<div class='message {msg['class']}' style='margin-bottom: 10px;'>{message_content}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
 # Close the container
 st.markdown("</div>", unsafe_allow_html=True)
