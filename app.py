@@ -4,8 +4,6 @@ import streamlit as st
 from datetime import datetime
 import sqlalchemy
 import mysql.connector
-# Import Streamlit's components API
-from streamlit.components.v1 import html
 
 if 'last_submission' not in st.session_state:
     st.session_state.last_submission = ''
@@ -128,25 +126,10 @@ start_message = {
 
 # Check if there are messages before displaying them
 if st.session_state.messages:
-    # Concatenate all messages into one HTML string
-    msgin = "".join(
-        f"<div class='message {msg['class']}'>{msg['text']}</div>"
-        for msg in st.session_state.messages
-    )
-
-    # Use Streamlit's HTML to render the chat messages within a scrollable container
-    st.components.v1.html(
-        f"""
-        <div class="scrollable-container">
-            {msgin}
-        </div>
-        <script>
-            const container = document.querySelector('.scrollable-container');
-            container.scrollTop = container.scrollHeight;
-        </script>
-        """,
-        height=600  # Set the height of the chat container
-    )
+    # Display only the last N messages to ensure they are in view
+    last_n = 5  # Adjust N based on your preference
+    for msg in st.session_state.messages[-last_n:]:
+        st.markdown(f"<div class='message {msg['class']}'>{msg['text']}</div>", unsafe_allow_html=True)
 
 
 # Display modified text input
