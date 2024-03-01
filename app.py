@@ -135,17 +135,15 @@ start_message = {
 }
 
 
-# Open the scrollable container before the loop
-
-# # Display chat messages inside the scrollable container
-msgin = ''
-for msg in st.session_state.messages:
-    msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
+# Check if there are messages before displaying them
+if st.session_state.messages:  # If there are messages
+    msgin = ''
+    for msg in st.session_state.messages:
+        msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
     
-st.markdown(f"<div class='scrollable-container'>"+msgin+f"</div>", unsafe_allow_html=True)
+    # Display the messages inside the scrollable container
+    st.markdown(f"<div class='scrollable-container'>{msgin}</div>", unsafe_allow_html=True)
 
-# # Close the container
-# st.markdown(f"</div>", unsafe_allow_html=True)
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
