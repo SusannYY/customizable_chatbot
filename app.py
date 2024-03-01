@@ -4,6 +4,8 @@ import streamlit as st
 from datetime import datetime
 import sqlalchemy
 import mysql.connector
+# Import Streamlit's components API
+from streamlit.components.v1 import html
 
 if 'last_submission' not in st.session_state:
     st.session_state.last_submission = ''
@@ -124,29 +126,28 @@ start_message = {
 }
 
 
-# Check if there are messages before displaying them and also add scrolling script
+# Define the HTML and script for auto-scrolling
+auto_scroll_html = """
+<div class="scrollable-container">
+    <!-- Messages will be inserted here -->
+    {messages_html}
+</div>
+<script>
+window.onload = function() {
+    var container = document.querySelector('.scrollable-container');
+    container.scrollTop = container.scrollHeight;
+}
+</script>
+""".format(messages_html=msgin)
+
+# Check if there are messages before displaying them and also add auto-scrolling
 if st.session_state.messages:
     msgin = ''
     for msg in st.session_state.messages:
         msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
     
-    # Display the messages inside the scrollable container
-    st.markdown(f"<div class='scrollable-container'>{msgin}</div>", unsafe_allow_html=True)
-
-    # Auto-scroll to the bottom of the chat container after new message is added
-    st.markdown(
-        """
-        <script>
-            setTimeout(function() {
-                const element = document.querySelector('.scrollable-container');
-                if (element) {
-                    element.scrollTop = element.scrollHeight;
-                }
-            }, 0);
-        </script>
-        """,
-        unsafe_allow_html=True
-    )
+    # Use the HTML component to render the messages and the script
+    html(auto_scroll_html)
 
 
 # Display modified text input
