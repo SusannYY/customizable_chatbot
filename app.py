@@ -51,7 +51,7 @@ st.markdown(
             overflow-y: auto; /* Show scrollbar when needed */
             border: 1px solid #ccc; /* Visual boundary */
             padding: 10px; /* Padding inside the container */
-            background-color: #000; /* Adjust the background color if needed */
+            background-color: #2D2928; /* Adjust the background color if needed */
         }
         .message {
             margin: 10px;
@@ -72,6 +72,17 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
+)
+
+# Auto-scroll to the bottom of the chat container after new message is added
+st.markdown(
+    """
+    <script>
+        const element = document.querySelector('.scrollable-container');
+        element.scrollTop = element.scrollHeight;
+    </script>
+    """,
+    unsafe_allow_html=True
 )
 
 # Connect to the database
@@ -135,18 +146,6 @@ st.markdown(f"<div class='scrollable-container'>"+msgin+f"</div>", unsafe_allow_
 
 # # Close the container
 # st.markdown(f"</div>", unsafe_allow_html=True)
-
-# Auto-scroll to the bottom of the chat container after new message is added
-st.markdown(
-    """
-    <script>
-    const element = document.querySelector('.scrollable-container');
-    element.scrollTop = element.scrollHeight;
-    </script>
-    """,
-    unsafe_allow_html=True
-)
-
 
 # Display modified text input
 user_input = st.text_input("You: ", value=st.session_state.widget_value, on_change=submit, key='widget_value')
