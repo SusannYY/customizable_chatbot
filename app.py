@@ -74,17 +74,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Auto-scroll to the bottom of the chat container after new message is added
-st.markdown(
-    """
-    <script>
-        const element = document.querySelector('.scrollable-container');
-        element.scrollTop = element.scrollHeight;
-    </script>
-    """,
-    unsafe_allow_html=True
-)
-
 # Connect to the database
 conn = mysql.connector.connect(
     user=st.secrets['sql_user'],
@@ -135,14 +124,29 @@ start_message = {
 }
 
 
-# Check if there are messages before displaying them
-if st.session_state.messages:  # If there are messages
+# Check if there are messages before displaying them and also add scrolling script
+if st.session_state.messages:
     msgin = ''
     for msg in st.session_state.messages:
         msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
     
     # Display the messages inside the scrollable container
     st.markdown(f"<div class='scrollable-container'>{msgin}</div>", unsafe_allow_html=True)
+
+    # Auto-scroll to the bottom of the chat container after new message is added
+    st.markdown(
+        """
+        <script>
+            setTimeout(function() {
+                const element = document.querySelector('.scrollable-container');
+                if (element) {
+                    element.scrollTop = element.scrollHeight;
+                }
+            }, 0);
+        </script>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 # Display modified text input
