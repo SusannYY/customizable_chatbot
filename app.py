@@ -126,28 +126,27 @@ start_message = {
 }
 
 
-# Define the HTML and script for auto-scrolling
-auto_scroll_html = """
-<div class="scrollable-container">
-    <!-- Messages will be inserted here -->
-    {messages_html}
-</div>
-<script>
-window.onload = function() {
-    var container = document.querySelector('.scrollable-container');
-    container.scrollTop = container.scrollHeight;
-}
-</script>
-""".format(messages_html=msgin)
-
-# Check if there are messages before displaying them and also add auto-scrolling
+# Check if there are messages before displaying them
 if st.session_state.messages:
-    msgin = ''
-    for msg in st.session_state.messages:
-        msgin += f"<div class='message {msg['class']}'>{msg['text']}</div>"
-    
-    # Use the HTML component to render the messages and the script
-    html(auto_scroll_html)
+    # Concatenate all messages into one HTML string
+    msgin = "".join(
+        f"<div class='message {msg['class']}'>{msg['text']}</div>"
+        for msg in st.session_state.messages
+    )
+
+    # Use Streamlit's HTML to render the chat messages within a scrollable container
+    st.components.v1.html(
+        f"""
+        <div class="scrollable-container">
+            {msgin}
+        </div>
+        <script>
+            const container = document.querySelector('.scrollable-container');
+            container.scrollTop = container.scrollHeight;
+        </script>
+        """,
+        height=600  # Set the height of the chat container
+    )
 
 
 # Display modified text input
