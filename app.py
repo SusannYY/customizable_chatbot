@@ -36,6 +36,8 @@ st.markdown(js_code, unsafe_allow_html=True)
 # getting user_id from the hidden input
 user_id = st.session_state.get('user_id', 'unknown_user_id')  # Replace with your actual user identification method
 
+st.title('Alex')
+
 # Database connection
 conn = mysql.connector.connect(
     user=st.secrets['sql_user'],
