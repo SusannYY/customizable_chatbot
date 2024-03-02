@@ -113,14 +113,11 @@ st.markdown("""
         height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centers the chat-container vertically */
-        align-items: center; /* Centers the chat-container horizontally */
     }
     .chat-container {
-        width: 70%; /* Matches the message width */
-        max-width: 800px; /* Maximum width of the chat container */
-        margin-top: 80px; /* Space for the header */
+        width: 70%; /* Adjust width as needed */
         overflow-y: auto;
+        margin-top: 100px; /* Increased space for the header */
         position: relative;
         box-sizing: border-box;
     }
@@ -144,19 +141,17 @@ st.markdown("""
     }
     .chat-header {
         position: fixed;
-        top: 20px; /* Lower than the top edge of the viewport */
-        background-color: #f1f1f1;
-        z-index: 1;
-        width: 70%; /* As wide as the messages */
-        max-width: 800px; /* Maximum width of the chat header */
-        margin-left: -50%; /* Half of the width to center it */
-        left: 50%; /* Set left to 50% to start centering */
-        transform: translateX(50%); /* Translate to perfectly center */
+        top: 50px; /* Increased to move the header lower */
+        left: 0;
+        right: 0;
         display: flex;
         align-items: center;
         padding: 10px;
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow to match messages */
+        background-color: #f1f1f1;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        z-index: 1;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .circle-logo {
         height: 40px;
@@ -178,7 +173,6 @@ st.markdown("""
     <!-- Your messages will be inserted here by Streamlit -->
 </div>
 """, unsafe_allow_html=True)
-
 
 
 # Display messages using markdown to apply custom styles
