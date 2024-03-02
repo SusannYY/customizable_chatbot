@@ -70,7 +70,7 @@ def save_conversation(conversation_id, user_id, content):
     except mysql.connector.Error as err:
         print("Something went wrong: {}".format(err))
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO conversations (user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
+        cursor.execute("INSERT INTO conversations (user_id, date, hour, content) VALUES (%s, %s, %s, %s)",
                        (user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
         conn.commit()
         cursor.close()
