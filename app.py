@@ -113,47 +113,50 @@ st.markdown("""
         height: 100vh;
         display: flex;
         flex-direction: column;
+        justify-content: center; /* Centers the chat-container vertically */
+        align-items: center; /* Centers the chat-container horizontally */
     }
     .chat-container {
-        flex-grow: 1;
+        width: 70%; /* Matches the message width */
+        max-width: 800px; /* Maximum width of the chat container */
+        margin-top: 80px; /* Space for the header */
         overflow-y: auto;
-        padding-top: 60px; /* Adjust this value based on the height of your header */
+        position: relative;
+        box-sizing: border-box;
     }
     .message {
         margin: 10px 0;
         padding: 10px;
         border-radius: 20px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        width: 70%;
-        position: relative;
-        word-wrap: break-word;
+        background-color: #f1f1f1;
+        color: #333;
     }
     .user-message {
         background-color: #007bff;
         color: white;
-        margin-left: auto;
         border-top-right-radius: 0;
         text-align: left;
     }
     .bot-message {
-        background-color: #f1f1f1;
-        color: #333;
-        margin-right: auto;
         border-top-left-radius: 0;
         text-align: left;
     }
     .chat-header {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 20px; /* Lower than the top edge of the viewport */
+        background-color: #f1f1f1;
+        z-index: 1;
+        width: 70%; /* As wide as the messages */
+        max-width: 800px; /* Maximum width of the chat header */
+        margin-left: -50%; /* Half of the width to center it */
+        left: 50%; /* Set left to 50% to start centering */
+        transform: translateX(50%); /* Translate to perfectly center */
         display: flex;
         align-items: center;
         padding: 10px;
-        background-color: #f1f1f1;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        z-index: 1;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow to match messages */
     }
     .circle-logo {
         height: 40px;
@@ -175,6 +178,7 @@ st.markdown("""
     <!-- Your messages will be inserted here by Streamlit -->
 </div>
 """, unsafe_allow_html=True)
+
 
 
 # Display messages using markdown to apply custom styles
