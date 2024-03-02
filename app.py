@@ -45,11 +45,14 @@ create_conversations_table()
 
 # Function to save conversations to the database
 def save_conversation(conversation_id, user_id, content):
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO conversations (conversation_id, user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
-                   (conversation_id, user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
-    conn.commit()
-    cursor.close()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO conversations (conversation_id, user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
+                       (conversation_id, user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
+        conn.commit()
+        cursor.close()
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))
 
 
 if not st.session_state["chat_started"]:
