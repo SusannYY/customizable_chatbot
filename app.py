@@ -42,7 +42,8 @@ conn = mysql.connector.connect(
     password=st.secrets['sql_password'],
     database=st.secrets['sql_database'],
     host=st.secrets['sql_host'],
-    port=st.secrets['sql_port']
+    port=st.secrets['sql_port'],
+    charset='utf8mb4'
 )
 
 # Function to create table if it doesn't exist
