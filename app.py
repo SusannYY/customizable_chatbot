@@ -141,7 +141,7 @@ st.markdown("""
     }
     .chat-header {
         position: fixed;
-        top: 30px; /* Increased to move the header lower */
+        top: 20px; /* Increased to move the header lower */
         left: 0;
         right: 0;
         display: flex;
