@@ -41,7 +41,24 @@ def create_conversations_table():
     conn.commit()
     cursor.close()
 
+def add_missing_columns():
+    cursor = conn.cursor()
+    try:
+        # Attempt to add the 'conversation_id' column if it doesn't exist.
+        # This SQL command might vary based on your SQL dialect.
+        cursor.execute('''
+        ALTER TABLE conversations 
+        ADD COLUMN IF NOT EXISTS conversation_id VARCHAR(255);
+        ''')
+        conn.commit()
+    except mysql.connector.Error as err:
+        print("Something went wrong when adding missing columns: {}".format(err))
+    finally:
+        cursor.close()
+
+# After creating the conversations table, call add_missing_columns to ensure all required columns exist.
 create_conversations_table()
+add_missing_columns()
 
 # Function to save conversations to the database
 def save_conversation(conversation_id, user_id, content):
@@ -136,10 +153,6 @@ for message in st.session_state["messages"]:
 # Input field for new messages
 if prompt := st.chat_input("Please type your entire response in one message."):
     st.session_state["last_submission"] = prompt
-
-    if "conversation_id" not in st.session_state:
-        st.session_state["conversation_id"] = str(uuid.uuid4())  # This line ensures a conversation_id is always available.
-    
     save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"You: {prompt}")
     st.session_state["messages"].append({"role": "user", "content": prompt})
     # Immediately display the participant's message using the new style
@@ -153,10 +166,6 @@ if prompt := st.chat_input("Please type your entire response in one message."):
     response = openai.ChatCompletion.create(model="gpt-4-turbo-preview", messages=conversation_history)
 
     bot_response = response.choices[0].message.content
-
-    if "conversation_id" not in st.session_state:
-        st.session_state["conversation_id"] = str(uuid.uuid4())  # This line ensures a conversation_id is always available.
-
     save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"Alex: {bot_response}")
     st.session_state["messages"].append({"role": "assistant", "content": bot_response})
     # Display the bot's response using the new style
