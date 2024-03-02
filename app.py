@@ -176,7 +176,7 @@ for message in st.session_state["messages"]:
 # Input field for new messages
 if prompt := st.chat_input("Please type your entire response in one message."):
     st.session_state["last_submission"] = prompt
-    save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"You: {prompt}")
+    save_conversation(st.session_state["conversation_id"], user_id, f"You: {prompt}")
     st.session_state["messages"].append({"role": "user", "content": prompt})
     # Immediately display the participant's message using the new style
     message_class = "user-message"
@@ -189,7 +189,7 @@ if prompt := st.chat_input("Please type your entire response in one message."):
     response = openai.ChatCompletion.create(model="gpt-4-turbo-preview", messages=conversation_history)
 
     bot_response = response.choices[0].message.content
-    save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"Alex: {bot_response}")
+    save_conversation(st.session_state["conversation_id"], user_id, f"Alex: {bot_response}")
     st.session_state["messages"].append({"role": "assistant", "content": bot_response})
     # Display the bot's response using the new style
     message_class = "bot-message"
