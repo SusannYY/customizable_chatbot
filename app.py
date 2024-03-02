@@ -141,13 +141,13 @@ st.markdown("""
     }
     .chat-header {
         position: fixed;
-        top: 50px; /* Increased to move the header lower */
+        top: 30px; /* Increased to move the header lower */
         left: 0;
         right: 0;
         display: flex;
         align-items: center;
         padding: 10px;
-        background-color: #f1f1f1;
+        background-color: #333333; /* Darker background for the header */
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         z-index: 1;
