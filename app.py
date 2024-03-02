@@ -45,14 +45,14 @@ create_conversations_table()
 
 # Function to save conversations to the database
 def save_conversation(conversation_id, user_id, content):
-    try:
+    # try:
         cursor = conn.cursor()
         cursor.execute("INSERT INTO conversations (conversation_id, user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
                        (conversation_id, user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
         conn.commit()
         cursor.close()
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    # except mysql.connector.Error as err:
+    #     print("Something went wrong: {}".format(err))
 
 
 if not st.session_state["chat_started"]:
@@ -136,6 +136,10 @@ for message in st.session_state["messages"]:
 # Input field for new messages
 if prompt := st.chat_input("Please type your entire response in one message."):
     st.session_state["last_submission"] = prompt
+
+    if "conversation_id" not in st.session_state:
+        st.session_state["conversation_id"] = str(uuid.uuid4())  # This line ensures a conversation_id is always available.
+    
     save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"You: {prompt}")
     st.session_state["messages"].append({"role": "user", "content": prompt})
     # Immediately display the participant's message using the new style
@@ -149,6 +153,10 @@ if prompt := st.chat_input("Please type your entire response in one message."):
     response = openai.ChatCompletion.create(model="gpt-4-turbo-preview", messages=conversation_history)
 
     bot_response = response.choices[0].message.content
+
+    if "conversation_id" not in st.session_state:
+        st.session_state["conversation_id"] = str(uuid.uuid4())  # This line ensures a conversation_id is always available.
+
     save_conversation(st.session_state["conversation_id"], "user_id_placeholder", f"Alex: {bot_response}")
     st.session_state["messages"].append({"role": "assistant", "content": bot_response})
     # Display the bot's response using the new style
