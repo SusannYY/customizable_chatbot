@@ -47,8 +47,7 @@ def add_missing_columns():
         # Attempt to add the 'conversation_id' column if it doesn't exist.
         # This SQL command might vary based on your SQL dialect.
         cursor.execute('''
-        ALTER TABLE conversations 
-        ADD COLUMN IF NOT EXISTS conversation_id VARCHAR(255);
+        ALTER TABLE conversations ADD COLUMN conversation_id VARCHAR(255);
         ''')
         conn.commit()
     except mysql.connector.Error as err:
@@ -62,14 +61,19 @@ add_missing_columns()
 
 # Function to save conversations to the database
 def save_conversation(conversation_id, user_id, content):
-    # try:
+    try:
         cursor = conn.cursor()
         cursor.execute("INSERT INTO conversations (conversation_id, user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
                        (conversation_id, user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
         conn.commit()
         cursor.close()
-    # except mysql.connector.Error as err:
-    #     print("Something went wrong: {}".format(err))
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO conversations (user_id, date, hour, content) VALUES (%s, %s, %s, %s, %s)",
+                       (user_id, datetime.now().strftime("%Y-%m-%d"), datetime.now().strftime("%H:%M:%S"), content))
+        conn.commit()
+        cursor.close()
 
 
 if not st.session_state["chat_started"]:
