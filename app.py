@@ -36,8 +36,6 @@ st.markdown(js_code, unsafe_allow_html=True)
 # getting user_id from the hidden input
 user_id = st.session_state.get('user_id', 'unknown_user_id')  # Replace with your actual user identification method
 
-st.title('Alex')
-
 # Database connection
 conn = mysql.connector.connect(
     user=st.secrets['sql_user'],
@@ -111,6 +109,15 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
     body {
         font-family: 'Roboto', sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .chat-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-top: 60px; /* Adjust this value based on the height of your header */
     }
     .message {
         margin: 10px 0;
@@ -135,38 +142,37 @@ st.markdown("""
         border-top-left-radius: 0;
         text-align: left;
     }
+    .chat-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        z-index: 1;
+    }
+    .circle-logo {
+        height: 40px;
+        width: 40px;
+        background-color: #4CAF50;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Chat header with logo and name
 st.markdown("""
-<style>
-    .chat-header {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background-color: #f1f1f1; /* Light grey background */
-        border-top-left-radius: 10px; /* Rounded corners at the top to match the chat container */
-        border-top-right-radius: 10px;
-    }
-    
-    .circle-logo {
-        height: 40px;
-        width: 40px;
-        background-color: #4CAF50; /* Green background */
-        border-radius: 50%; /* Makes the div circular */
-        margin-right: 10px;
-    }
-    
-    .chat-header h4 {
-        margin: 0;
-        font-weight: normal;
-    }
-</style>
-
 <div class="chat-header">
     <div class="circle-logo"></div> 
     <h4>Alex</h4>
+</div>
+<div class="chat-container">
+    <!-- Your messages will be inserted here by Streamlit -->
 </div>
 """, unsafe_allow_html=True)
 
